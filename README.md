@@ -3,7 +3,7 @@
   <h1>Key Task</h1>
 </div>
 
-- **Clone**: `git clone https://github.com/guluzadef/Task_Passport`
+- **Clone**: `git clone https://github.com/guluzadef/task_key.git`
 - **After Clone**: `cd Key_History`
 
 - **Create and Activate virtualenv**: `python3 -m venv venv`  **after** `source /venv/bin/activate`
