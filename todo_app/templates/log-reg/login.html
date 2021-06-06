@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block body %}
+    <h2>Login</h2>
+    <br>
+    <form method="POST" class="registerForm">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+
+
+                {% render_field field class="form-control" placeholder=field.label %}
+                {% if field.errors %}
+                    {% for msg in field.errors %}
+                        <span class="text-danger">{{ msg }}</span>
+                    {% endfor %}
+                {% endif %}
+
+
+            </div>
+        {% endfor %}
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block body %}
+    <style>
+        .form-group {
+            margin: 41px 35px;
+        }
+
+        input {
+            margin-top: 10px;
+        }
+    </style>
+    <h2>Update Key</h2>
+    <br>
+    <form method="post" class="updateForm">
+        {% csrf_token %}
+        {#        {% for field in form %}#}
+        <div class="form-group w-75">
+            {% render_field form.type class="form-control" %}
+            {% render_field form.host class="form-control" placeholder='HOST' %}
+            {% if key.port %}
+                {% render_field form.port class="form-control port" placeholder='PORT' %}
+            {% endif %}
+            {% render_field form.user class="form-control" placeholder='USER' %}
+            {% render_field form.password class="form-control" placeholder='PASSWORD' %}
+
+            {% if form.errors %}
+                {% for msg in form.errors %}
+                    <span class="text-danger">{{ msg }}</span>
+                {% endfor %}
+            {% endif %}
+        </div>
+        {#        {% endfor %}#}
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                }
+            }
+        });
+        var needsUpdate = true;
+        $(document).on('click', 'select', function () {
+            var checker = $(this).val();
+            console.log(checker);
+            var after = $('.form-control')[0];
+            console.log(after[0]);
+            if (checker === 'FTB' || checker === 'SSH' && needsUpdate) {
+                if ($('.port').length === 0) {
+                    $('<input type="text" name="port" class="port form-control"  placeholder="PORT">').insertAfter(after);
+                    console.log($('.port').length)
+                }
+
+            }
+                {#if(checker.next().hasClass())#}
+            else if (checker === 'ADMIN') {
+                $('.port').remove();
+                needsUpdate = true;
+            } else if (checker === 'EMAIL') {
+                $('.port').remove();
+                needsUpdate = true;
+            }
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="container-fluid p-0">
+
+        <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="about">
+            <div class="w-100">
+                <h1 class="mb-0">Welcome to Website
+                </h1>
+                {% if not request.user.is_authenticated %}
+
+                    <div >
+                        <a href="{% url 'register' %}">Create your Account</a>
+                        For your Key history
+                    </div>
+                {% else %}
+                    <div>
+                        <a href="{% url 'key' %}">Create</a>
+                        Your first Key
+                    </div>
+
+                {% endif %}
+
+            </div>
+        </section>
+
+
+    </div>
+{% endblock %}

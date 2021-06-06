@@ -1,0 +1,12 @@
+pgdb/
+.idea/
+media/
+.venv
+db.sqlite3
+*.pyc
+localhost/
+locale/
+_development/
+.vscode/
+*.log
+postgredb/
